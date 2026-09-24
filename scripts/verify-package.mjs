@@ -76,11 +76,13 @@ function assert(condition, message) {
 function assertServerModule(module, label) {
   assert(module.default?.id === 'brhp', `${label} must expose plugin id`);
   assert(typeof module.default?.server === 'function', `${label} must expose server function`);
+  assert(typeof module.default?.setup === 'function', `${label} must expose OpenCode v2 setup`);
 }
 
 function assertTuiModule(module, label) {
   assert(module.default?.id === 'brhp', `${label} must expose plugin id`);
   assert(typeof module.default?.tui === 'function', `${label} must expose tui function`);
+  assert(typeof module.default?.setup === 'function', `${label} must expose OpenCode v2 TUI setup`);
 }
 
 async function verifyLocalFilePackageSpec() {
@@ -224,8 +226,10 @@ let disposeHandler;
 
 if (serverModule?.id !== 'brhp') throw new Error('server export missing id');
 if (typeof serverModule?.server !== 'function') throw new Error('server export missing server function');
+if (typeof serverModule?.setup !== 'function') throw new Error('server export missing OpenCode v2 setup');
 if (tuiModule?.id !== 'brhp') throw new Error('tui export missing id');
 if (typeof tuiModule?.tui !== 'function') throw new Error('tui export missing tui function');
+if (typeof tuiModule?.setup !== 'function') throw new Error('tui export missing OpenCode v2 setup');
 
 const hooks = await serverModule.server({
   client: {},
