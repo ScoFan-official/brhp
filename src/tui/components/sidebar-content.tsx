@@ -10,7 +10,7 @@ import type { SidebarGraphPreview, SidebarModel } from '../../domain/sidebar/sid
 import { subscribeToSidebarRefresh } from '../state/sidebar-refresh.js';
 
 interface SidebarContentProps {
-  readonly api: TuiPluginApi;
+  readonly api?: TuiPluginApi;
   readonly theme: TuiTheme;
   readonly sessionId: string;
   readonly loadModel: (sessionId: string) => Promise<SidebarLoadResult>;

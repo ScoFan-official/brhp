@@ -56,7 +56,7 @@ An example config is provided at `.opencode/brhp/config.example.yaml`. Currently
 
 Requirements:
 
-- OpenCode `v1.4.0+`
+- OpenCode `v1.4.0+`, or OpenCode `v2`
 - Node.js `20+`
 
 BRHP is not published on npm yet. Until it is, load it from a local checkout with OpenCode's path-like plugin spec support and a `file://` package path.
@@ -75,9 +75,9 @@ pnpm build
 pnpm verify:package
 ```
 
-Then add the local package path to your OpenCode runtime config.
+Then add the local package path to your OpenCode config.
 
-`opencode.json`
+OpenCode v1 `opencode.json`:
 
 ```json
 {
@@ -86,9 +86,7 @@ Then add the local package path to your OpenCode runtime config.
 }
 ```
 
-Add the same local package path to your OpenCode TUI config.
-
-`tui.json`
+OpenCode v1 also needs the same path in `tui.json` so the sidebar loads:
 
 ```json
 {
@@ -96,9 +94,20 @@ Add the same local package path to your OpenCode TUI config.
 }
 ```
 
+OpenCode v2 reads the same package. Prefer the native `plugins` field; the v1 `plugin` field still loads. v2 does not use `tui.json`. The package `./tui` export registers the sidebar and the refresh command.
+
+`opencode.json`:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugins": ["file:///absolute/path/to/brhp"]
+}
+```
+
 Restart OpenCode after changing plugin config. Re-run `pnpm build` after local BRHP source changes.
 
-After BRHP is published to npm, replace the `file://` entries with `"brhp"` in both config files.
+After BRHP is published to npm, replace the `file://` entries with `"brhp"`.
 
 Common commands:
 

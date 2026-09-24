@@ -1,6 +1,7 @@
 import type { Plugin } from '@opencode-ai/plugin';
 
 import { createServerPluginHooks } from './composition/create-server-plugin.js';
+import { setup } from './v2/server-setup.js';
 
 const id = 'brhp' as const;
 
@@ -10,5 +11,6 @@ const server = (async input => {
 
 export default {
   id,
+  setup,
   server,
 };
